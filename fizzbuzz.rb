@@ -1,9 +1,13 @@
 def fizzbuzz(inicio, fin, reglas)
-	for number in 0..100
-		if (number.module(reglas[FIZZ])==0)
+	# bucle for 
+	for number in inicio..fin
+
+		if (number.to_i%reglas["FIZZ"]==0)
 			puts "FIZZ!"
-		elseif (number%reglas[BUZZ]==0)
+		elsif (number.to_i%reglas["BUZZ"]==0)
 			puts "BUZZ!"
+		else puts number
+		end
 	end
 end
 puts "introduce el primer numero"
@@ -11,10 +15,11 @@ inicio=gets.chomp
 puts "introduce el ultimo numero"
 fin=gets.chomp
 puts "divisor FIZZ"
-fizz=get.chomp
+fizz=gets.chomp
 puts "divisor BUZZ"
-buzz=puts.chomp
-reglas[FIZZ]=fizz
-reglas[BUZZ]=buzz
+buzz=gets.chomp
+reglas={}
+reglas["FIZZ"]=fizz.to_i
+reglas["BUZZ"]=buzz.to_i
 fizzbuzz(inicio, fin, reglas)
 
