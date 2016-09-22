@@ -1,13 +1,16 @@
 def fizzbuzz(inicio, fin, reglas)
 	# bucle for 
+	puts ""
 	for number in inicio..fin
-
-		if (number.to_i%reglas["FIZZ"]==0)
-			puts "FIZZ!"
+		result=number
+		if (number.to_i%reglas["FIZZ"]==0 && number.to_i%reglas["BUZZ"]==0)
+			result="FIZZBUZZ"
+		elsif (number.to_i%reglas["FIZZ"]==0)
+			result="FIZZ"
 		elsif (number.to_i%reglas["BUZZ"]==0)
-			puts "BUZZ!"
-		else puts number
+			result="BUZZ"
 		end
+		puts result
 	end
 end
 puts "introduce el primer numero"
