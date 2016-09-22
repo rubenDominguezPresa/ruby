@@ -8,9 +8,10 @@ class ShoppingCart
   end
   def checkout
   	total=0;
+  	puts "Cart:"
   	for cart in 0..@items.size-1
   		#total de la cesta
-  		#puts "Item #{@items[cart].name} Price #{@items[cart].price}"
+  		puts "#{@items[cart].name}"
   		total=total + @items[cart].price
   	end
   	if @items.size>5
@@ -42,7 +43,10 @@ class Houseware < Item
   	if @price>100
   		#descuento del 5% en productos de mas de 100
   		puts "discount 5% in #{@name}"
-  		return (@price-(@price*5/100))
+  		@price=(@price-(@price*5/100))
+  	
+  	else
+  		@price=@price
   	end   
       #Hmmm maybe this changes somehow..
   end
@@ -53,16 +57,17 @@ end
 
 class Fruit < Item
   def price
-  	puts "Fruit" 
-      if (Time.now.wday>=6)
+   
+      if (Time.now.wday>=4)
       	#descuento de 10% los fines de semana ( dias 6 y 7 de la semana)
       	puts "discount 10% weekends in #{@name}"
       	@price=(@price-(@price*10/100))
       end
-  else
+  
   	return @price
       #Something special may go here too...
-  end
+	  
+   end
 end
 
 #ejecucion
@@ -77,5 +82,5 @@ joshs_cart = ShoppingCart.new
 joshs_cart.add_item(oj)
 joshs_cart.add_item(rice)
 joshs_cart.add_item(banana)
-#joshs_cart.add_item(vaccuum)
+joshs_cart.add_item(vaccuum)
 joshs_cart.checkout
