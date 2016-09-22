@@ -1,66 +1,81 @@
-class Item
-	attr_reader :item, :price
-	def initialize(item, price)
-		@item = item
-		@price = price
-	end
-end
-
-class Items
-	def initialize()
-		@items=[ ]
-		item1=Item.new("apples",10)
-		item2=Item.new("oranges",5)
-		item3=Item.new("banana",20)
-		item4=Item.new("watermelon",50)
-		item5=Item.new("rice",1)
-		item6=Item.new("vacuum cleaner",150)
-		item7=Item.new("anchovies",2)
-		#puts item7.item
-		@items.push(item1)
-		#puts @items[0].item
-		@items.push(item2)
-		@items.push(item3)
-		@items.push(item4)
-		@items.push(item5)
-		@items.push(item6)
-		@items.push(item7)
-	end
-	def getItem(item)
-		for itemP in 0..@items.size-1
-			#puts @items[itemP].item
-			if ((@items[itemP].item)==item)
-				#puts @items[itemP].item
-				return @items[itemP]
-			end
-		end
-	end
-end
-#Class shoppingCart
 class ShoppingCart
-	def initialize()
-		
-		@cart=[ ]
-		@items= Items.new
-	end
-
-	def add(item)
-		@cart.push(@items.getItem(item))
-	end
-
-	def checkout()
-		total=0
-		#puts @cart
-		puts "Shopping Cart"
-		for item in 0..@cart.size-1
-			puts "#{@cart[item].item}  #{@cart[item].price}"
-			total =total+@cart[item].price
-		end
-		puts "Total: #{total}"
-	end
+  def initialize
+    @items = []	
+  end
+  def add_item(item)
+  	@items.push(item)
+      #Add your item to @items
+  end
+  def checkout
+  	total=0;
+  	for cart in 0..@items.size-1
+  		#total de la cesta
+  		#puts "Item #{@items[cart].name} Price #{@items[cart].price}"
+  		total=total + @items[cart].price
+  	end
+  	if @items.size>5
+  		#mas de 5 productos hacemos el 10%
+  		total = total - total*10/100
+  	end
+  	puts "Your total today is #{total}. Have a nice day!"
+  end
 end
 
-cart= ShoppingCart.new
-cart.add("apples")
-cart.add("banana")
-cart.checkout
+#clase principal de items
+class Item
+  attr_reader :name, :price
+  def initialize(name, price)
+      @name = name
+      @price = price
+  end
+
+  def price
+      return @price
+      #Your beautiful code goes here
+  end
+end
+
+#clase Houseware implementa item
+class Houseware < Item
+  def price
+  	#puts "entro en Houseware #{name}:#{price}"
+  	if @price>100
+  		#descuento del 5% en productos de mas de 100
+  		puts "discount 5% in #{@name}"
+  		return (@price-(@price*5/100))
+  	end   
+      #Hmmm maybe this changes somehow..
+  end
+end
+
+
+#clase Fruit implementa item
+
+class Fruit < Item
+  def price
+  	puts "Fruit" 
+      if (Time.now.wday>=6)
+      	#descuento de 10% los fines de semana ( dias 6 y 7 de la semana)
+      	puts "discount 10% weekends in #{@name}"
+      	@price=(@price-(@price*10/100))
+      end
+  else
+  	return @price
+      #Something special may go here too...
+  end
+end
+
+#ejecucion
+#cargamos los items
+banana = Fruit.new("Banana", 10)
+vaccuum = Houseware.new("Vaccuum", 150)
+oj = Item.new("Orange Juice", 10)
+rice = Item.new("Rice", 1)
+anchovies = Item.new("Anchovies", 2)
+#inicializa cart y añade productos
+joshs_cart = ShoppingCart.new
+joshs_cart.add_item(oj)
+joshs_cart.add_item(rice)
+joshs_cart.add_item(banana)
+#joshs_cart.add_item(vaccuum)
+joshs_cart.checkout
